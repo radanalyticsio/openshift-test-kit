@@ -83,8 +83,10 @@ function os::text::clear_string() {
 
 # os::text::internal::is_tty determines if we are outputting to a TTY
 function os::text::internal::is_tty() {
-    echo
-	[[ "${TRAVIS:-}" = "true" ]] ||  [[ -t 1 && -n "${TERM:-}" ]]
+    if [[ "${OS_PAD_FORMATTED_TEXT:-true}" == "true" ]]; then
+        echo
+    fi
+    [[ "${TRAVIS:-}" = "true" ]] ||  [[ -t 1 && -n "${TERM:-}" ]]
 }
 readonly -f os::text::internal::is_tty
 
